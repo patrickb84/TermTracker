@@ -13,5 +13,44 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
+    <PackageReference Include="Xam.Plugins.Notifier" Version="3.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="AppShell.xaml.cs">
+      <DependentUpon>AppShell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CourseDetailPage.xaml.cs">
+      <DependentUpon>CourseDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CourseEntryPage.xaml.cs">
+      <DependentUpon>CourseEntryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TermDetailPage.xaml.cs">
+      <DependentUpon>TermDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TermEntryPage.xaml.cs">
+      <DependentUpon>TermEntryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\TermsPage.xaml.cs">
+      <DependentUpon>TermsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\AssessmentEntryPage.xaml.cs">
+      <DependentUpon>AssessmentEntryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\NotificationsPage.xaml.cs">
+      <DependentUpon>NotificationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\CourseNotesPage.xaml.cs">
+      <DependentUpon>CourseNotesPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

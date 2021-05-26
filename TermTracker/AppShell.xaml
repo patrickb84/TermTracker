@@ -1,9 +1,35 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ContentPage
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="TermTracker.AppShell">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
-</ContentPage>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:TermTracker.Views"
+       x:Class="TermTracker.AppShell">
+    <Shell.Resources>
+        <!-- Style -->
+        <Style x:Key="BaseStyle"
+               TargetType="Element">
+            <Setter Property="Shell.BackgroundColor"
+                    Value="{StaticResource ColorPrimary}" />
+            <Setter Property="Shell.ForegroundColor"
+                    Value="{StaticResource ColorWhite}" />
+            <Setter Property="Shell.TitleColor"
+                    Value="{StaticResource ColorWhite}" />
+            <Setter Property="Shell.TabBarUnselectedColor"
+                    Value="{StaticResource ColorBlack}"/>
+        </Style>
+        <Style TargetType="TabBar"
+               BasedOn="{StaticResource BaseStyle}" />
+    </Shell.Resources>
+
+    <!-- Bottom bar --> 
+    <TabBar>
+        <ShellContent Title="Terms"
+                      Icon="i_add.png"
+                      ContentTemplate="{DataTemplate local:TermsPage}" />
+        <ShellContent Title="Notifications"
+                      Icon="i_bell.png"
+                      ContentTemplate="{DataTemplate local:NotificationsPage}" />
+        <ShellContent Title="About"
+                      Icon="i_book.png"
+                      ContentTemplate="{DataTemplate local:AboutPage}" />
+    </TabBar>
+</Shell>

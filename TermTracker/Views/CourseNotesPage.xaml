@@ -2,8 +2,11 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="TermTracker.Views.CourseNotesPage">
+    x:Class="TermTracker.Views.CourseNotesPage"
+    Title="Course Notes">
     <ContentPage.Content>
-        
+        <StackLayout Spacing="20" Margin="{StaticResource PageMargin}">
+            <Label Text="Course Notes" />
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

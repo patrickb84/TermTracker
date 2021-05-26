@@ -2,8 +2,86 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="TermTracker.Views.TermDetailPage">
-    <ContentPage.Content>
+    x:Class="TermTracker.Views.TermDetailPage"
+    Title="Term Detail">
+    <ContentPage.Resources>
+        <!-- Define a visual state for the Selected state of the CollectionView -->
+        <Style TargetType="Frame">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Selected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor"
+                                        Value="#eeeeee" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <!-- Toolbar -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" Clicked="EditTerm_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Margin="{StaticResource PageMargin}">
+        <Frame Padding="0">
+            <StackLayout Spacing="8">
+                <Label Text="{Binding TermTitle}"
+                       FontSize="Title"
+                       FontAttributes="Bold"/>
+                <Label Text="{Binding TermDates}"
+                       TextColor="{StaticResource ColorInfo}"
+                       FontSize="Small"
+                       FontAttributes="Bold" />
+            </StackLayout>
+        </Frame>
+
+        <BoxView BackgroundColor="#dedede" HeightRequest="1" Margin="0,15,0,15"/>
+
         
-    </ContentPage.Content>
+        <Label Text="COURSES" FontSize="Medium" FontAttributes="Bold" />
+
+        <CollectionView x:Name="CoursesCollection"
+                        SelectionMode="Single"
+                        SelectionChanged="CoursesCollection_SelectionChanged">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="#cecece"
+                           CornerRadius="5"
+                           Padding="8"
+                           HasShadow="False">
+                        <StackLayout Spacing="4">
+                            <Frame BackgroundColor="{Binding StatusColor}"
+                                   Padding="3"
+                                   CornerRadius="3">
+                                <Label Text="{Binding Status}"
+                                       TextColor="White"
+                                       FontSize="Micro"
+                                       FontAttributes="Bold"/>
+                            </Frame>
+                            <Label Text="{Binding CourseTitle}" FontSize="Small" />
+                            <Label Text="{Binding CourseDates}"
+                                   FontSize="Micro"
+                                   TextColor="{StaticResource ColorSecondary}"/>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button BackgroundColor="{StaticResource ColorInfo}"
+                VerticalOptions="EndAndExpand"
+                Text="Add Course"
+                Clicked="AddCourseButton_Clicked" />
+
+    </StackLayout>
 </ContentPage>

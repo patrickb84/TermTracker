@@ -2,8 +2,83 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="TermTracker.Views.CourseEntryPage">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
+    x:Class="TermTracker.Views.CourseEntryPage"
+    Title="Course Entry">
+
+    <!-- Layout children vertically -->
+    <StackLayout Margin="{StaticResource PageMargin}" Spacing="12">
+        <Entry Placeholder="Course Title"
+               Text="{Binding CourseTitle}" />
+        <Frame Padding="1" BorderColor="White" HasShadow="False">
+            <StackLayout>
+                <Label Text="START DATE" FontSize="Micro"/>
+                <DatePicker x:Name="StartDatePicker"
+                    Date="{Binding CourseStartDate}"
+                    Format="D"
+                    MinimumDate="1/1/2018"
+                    MaximumDate="12/31/2025" />
+                <StackLayout Orientation="Horizontal">
+                    <Label HorizontalOptions="FillAndExpand" VerticalOptions="Center" Text="Notify me when term starts"
+                           FontSize="Small" FontAttributes="Italic" />
+                    <Switch IsToggled="false"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+        <Frame Padding="1" BorderColor="White" HasShadow="False">
+            <StackLayout>
+                <Label Text="END DATE" FontSize="Micro"/>
+                <DatePicker x:Name="EndDatePicker"
+                    Date="{Binding CourseEndDate}"
+                    Format="D"
+                    MinimumDate="1/1/2018"
+                    MaximumDate="12/31/2025" />
+                <StackLayout Orientation="Horizontal">
+                    <Label HorizontalOptions="FillAndExpand" VerticalOptions="Center" Text="Notify me when term ends"
+                           FontSize="Small" FontAttributes="Italic" />
+                    <Switch IsToggled="true"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+        <Frame Padding="1" BorderColor="White" HasShadow="False">
+            <StackLayout>
+                <Label Text="COURSE STATUS" FontSize="Micro" FontAttributes="Bold"/>
+                <Picker x:Name="statusPicker" SelectedItem="{Binding Status}" />
+            </StackLayout>
+        </Frame>
+
+        <Frame HasShadow="False" Padding="10" BorderColor="{StaticResource ColorLight}">
+            <StackLayout>
+                <Label Text="INSTRUCTOR" FontSize="Small" FontAttributes="Bold"/>
+                <Frame Padding="1" BorderColor="White" HasShadow="False">
+                    <StackLayout>
+                        <Label Text="NAME" FontSize="Micro" />
+                        <Entry Text="{Binding InstructorName}" />
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="1" BorderColor="White" HasShadow="False">
+                    <StackLayout>
+                        <Label Text="PHONE" FontSize="Micro" />
+                        <Entry Text="{Binding InstructorPhone}" />
+                    </StackLayout>
+                </Frame>
+                <Frame Padding="1" BorderColor="White" HasShadow="False">
+                    <StackLayout>
+                        <Label Text="EMAIL" FontSize="Micro" />
+                        <Entry Text="{Binding InstructorEmail}" />
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </Frame>
+
+        <!-- 2 Col buttons -->
+        <Grid VerticalOptions="EndAndExpand" ColumnDefinitions="*,*">
+            <Button Text="Save"
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    Clicked="SaveButton_Click" />
+            <Button Grid.Column="1"
+                    BackgroundColor="{StaticResource ColorDanger}"
+                    Text="Delete"
+                    Clicked="DeleteButton_Click"/>
+        </Grid>
+    </StackLayout>
 </ContentPage>

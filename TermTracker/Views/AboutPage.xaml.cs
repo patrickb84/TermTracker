@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
+﻿
+using System;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace TermTracker.Views
@@ -10,6 +10,12 @@ namespace TermTracker.Views
         public AboutPage()
         {
             InitializeComponent();
+        }
+
+        async void OnButtonClicked(object sender, EventArgs e)
+        {
+            // Launch the specified URL in the system browser.
+            await Launcher.OpenAsync("https://aka.ms/xamarin-quickstart");
         }
     }
 }

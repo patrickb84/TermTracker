@@ -2,8 +2,51 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="TermTracker.Views.AssessmentEntryPage">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
+    x:Class="TermTracker.Views.AssessmentEntryPage"
+    Title="Assessment Entry">
+    <StackLayout Spacing="16" Margin="{StaticResource PageMargin}">
+        <Label x:Name="TxtAssessmentType"
+               FontSize="Medium"
+               HorizontalOptions="Center" />
+        <Frame Padding="1" BorderColor="White" HasShadow="False">
+            <StackLayout>
+                <Label Text="ASSESSMENT TITLE" FontSize="Micro" />
+                <Entry Text="{Binding AssessmentTitle}" />
+            </StackLayout>
+        </Frame>
+        <Frame Padding="1" BorderColor="White" HasShadow="False">
+            <StackLayout>
+                <Label Text="DUE DATE" FontSize="Micro"/>
+                <DatePicker x:Name="AssesmentDatePicker"
+                    Date="{Binding DueDate}"
+                    Format="D"
+                    MinimumDate="1/1/2018"
+                    MaximumDate="12/31/2025" />
+                <StackLayout Orientation="Horizontal">
+                    <Label HorizontalOptions="FillAndExpand"
+                           VerticalOptions="Center"
+                           Text="Notify me on this date"
+                           FontSize="Small" />
+                    <Switch IsToggled="{Binding NotifyDueDate}"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+        <!-- 2 Col buttons -->
+        <Grid x:Name="BtnsEdit"
+              VerticalOptions="EndAndExpand"
+              IsVisible="false"
+              ColumnDefinitions="*,*">
+            <Button Text="Save"
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    Clicked="SaveButton_Click" />
+            <Button Grid.Column="1"
+                    BackgroundColor="{StaticResource ColorDanger}"
+                    Text="Delete"
+                    Clicked="DeleteButton_Click" />
+        </Grid>
+        <Button x:Name="BtnSaveNew" Text="Save"
+              VerticalOptions="EndAndExpand"
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    Clicked="SaveButton_Click" />
+    </StackLayout>
 </ContentPage>

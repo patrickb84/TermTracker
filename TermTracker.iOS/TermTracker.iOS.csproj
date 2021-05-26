@@ -125,6 +125,12 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="sqlite-net-pcl">
+      <Version>1.7.335</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugins.Notifier">
+      <Version>3.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -132,5 +138,16 @@
       <Project>{91A64F26-C321-4C2E-82A6-B7557AE3DF89}</Project>
       <Name>TermTracker</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\i_book%403x.png" />
+    <BundleResource Include="Resources\i_book%402x.png" />
+    <BundleResource Include="Resources\i_book.png" />
+    <BundleResource Include="Resources\i_bell%403x.png" />
+    <BundleResource Include="Resources\i_bell%402x.png" />
+    <BundleResource Include="Resources\i_bell.png" />
+    <BundleResource Include="Resources\i_add%403x.png" />
+    <BundleResource Include="Resources\i_add%402x.png" />
+    <BundleResource Include="Resources\i_add.png" />
   </ItemGroup>
 </Project>

@@ -3,6 +3,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TermTracker.App">
     <Application.Resources>
+        <Thickness x:Key="PageMargin">20</Thickness>
+        <Thickness x:Key="MarginBottom">0, 0, 0, 20</Thickness>
+        
 
+        <!-- OLD COLORS -->
+        <Color x:Key="AppPrimaryColor">#1976D2</Color>
+        <Color x:Key="AppBackgroundColor">AliceBlue</Color>
+        <Color x:Key="PrimaryColor">Black</Color>
+        <Color x:Key="SecondaryColor">White</Color>
+        <Color x:Key="TertiaryColor">Silver</Color>
+
+        <Color x:Key="ColorPrimary">#037BFE</Color>
+        <Color x:Key="ColorSecondary">#6C757D</Color>
+        <Color x:Key="ColorSuccess">#28A744</Color>
+        <Color x:Key="ColorInfo">#15A3B8</Color>
+        <Color x:Key="ColorOrange">#FFC106</Color>
+        <Color x:Key="ColorDanger">#DD3444</Color>
+        <Color x:Key="ColorLight">#cccccc</Color>
+        <Color x:Key="ColorBlack">#000000</Color>
+        <Color x:Key="ColorWhite">#ffffff</Color>
+
+        <!-- Implicit styles -->
+        <Style TargetType="ContentPage"
+               ApplyToDerivedTypes="True">
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource ColorWhite}" />
+        </Style>
+
+        <!-- Button -->
+        <Style TargetType="Button">
+            <Setter Property="FontSize"
+                    Value="Medium" />
+            <Setter Property="BackgroundColor"
+                    Value="{StaticResource ColorPrimary}" />
+            <Setter Property="TextColor"
+                    Value="{StaticResource ColorWhite}" />
+            <Setter Property="CornerRadius"
+                    Value="5" />
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="BackgroundColor" Value="#eeeeee"/>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="BackgroundColor" Value="#eeeeee"/>
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="BackgroundColor" Value="#eeeeee"/>
+        </Style>
+        <Style TargetType="Frame">
+            <Setter Property="HasShadow" Value="False"/>
+            <Setter Property="Padding" Value="10" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+        </Style>  
     </Application.Resources>
 </Application>

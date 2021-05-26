@@ -2,8 +2,118 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="TermTracker.Views.CourseDetailPage">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
+    x:Class="TermTracker.Views.CourseDetailPage"
+    Title="Course">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit" Clicked="Edit_Clicked" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Margin="{StaticResource PageMargin}"
+                 Spacing="20">
+        <Frame Padding="0">
+            <StackLayout Spacing="6">
+                <Frame BackgroundColor="{Binding StatusColor}"
+                       Padding="4"
+                       CornerRadius="3">
+                    <Label Text="{Binding Status}"
+                           TextColor="White"
+                           FontSize="Micro"
+                           FontAttributes="Bold"/>
+                </Frame>
+                <Label Text="{Binding CourseTitle}"
+                       FontSize="Title" />
+                <Label Text="{Binding CourseDates}"
+                       TextColor="{StaticResource ColorSecondary}"
+                       FontSize="Small"
+                       FontAttributes="Bold" />
+            </StackLayout>
+        </Frame>
+        <!--<BoxView HeightRequest="1"
+                 BackgroundColor="{StaticResource ColorSecondary}" />-->
+        <Frame BackgroundColor="#dedede"
+               CornerRadius="4"
+               Padding="0">
+            <StackLayout Spacing="3"
+                         Margin="16,12,16,12">
+
+                <Label Text="Course Instructor" FontSize="Small"
+                       FontAttributes="Bold" Margin="0,0,0,5"/>
+                <Label Text="{Binding InstructorName}" FontSize="Small" />
+                <Label Text="{Binding InstructorPhone}" FontSize="Small" />
+                <Label Text="{Binding InstructorEmail}" FontSize="Small" />
+            </StackLayout>
+        </Frame>
+
+        <!--OBJECTIVE-->
+        <StackLayout>
+            <Button x:Name="ObjButton"
+                    Text="Add Objective Assessment Info"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource ColorSecondary}"
+                    BorderColor="{StaticResource ColorSecondary}"
+                    BorderWidth="1"
+                    Clicked="EditAssessmentO_Handler"/>
+            <Frame x:Name="ObjFrame"
+                   BackgroundColor="Transparent"
+                   BorderColor="Black">
+                <StackLayout Spacing="3">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="EditAssessmentO_Handler" />
+                    </StackLayout.GestureRecognizers>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="OBJECTIVE ASSESSMENT" FontSize="Micro"
+                               HorizontalOptions="FillAndExpand"
+                               FontAttributes="Bold"/>
+                        <Label Text="October 11, 2021"
+                               FontSize="Micro"
+                               FontAttributes="Bold"
+                               x:Name="ObjDate" />
+                    </StackLayout>
+                    <Label Text="C# Mobile Programming"
+                           FontSize="Small"
+                           x:Name="ObjName"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+
+        <!--PERFORMANCE-->
+        <StackLayout>
+            <Button x:Name="PerfButton"
+                    Text="Add Performance Assessment Info"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource ColorSecondary}"
+                    BorderColor="{StaticResource ColorSecondary}"
+                    BorderWidth="1"
+                    Clicked="EditAssessmentP_Handler"/>
+            <Frame x:Name="PerfFrame"
+                   BackgroundColor="Transparent"
+                   BorderColor="Black">
+                <StackLayout Spacing="3">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="EditAssessmentP_Handler" />
+                    </StackLayout.GestureRecognizers>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="PERFORMANCE ASSESSMENT" FontSize="Micro"
+                               HorizontalOptions="FillAndExpand"
+                               FontAttributes="Bold" />
+                        <Label Text="October 11, 2021"
+                               FontSize="Micro"
+                               FontAttributes="Bold"
+                               x:Name="PerfDate" />
+                    </StackLayout>
+                    <Label Text="C# Mobile Programming"
+                           FontSize="Small"
+                           x:Name="PerfName" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+
+        <Frame Padding="0" VerticalOptions="EndAndExpand">
+            <StackLayout Spacing="10">
+                <Button Text="View Course Notes"
+                        BackgroundColor="{StaticResource ColorInfo}" />
+            </StackLayout>
+        </Frame>
+    </StackLayout>
 </ContentPage>

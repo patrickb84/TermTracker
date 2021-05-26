@@ -1,9 +1,49 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="TermTracker.Views.TermEntryPage">
-    <ContentPage.Content>
-        
-    </ContentPage.Content>
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    x:Class="TermTracker.Views.TermEntryPage"
+    Title="Term Entry">
+
+    <!-- Layout children vertically -->
+    <StackLayout Margin="{StaticResource PageMargin}"
+                 Spacing="12">
+        <Entry Placeholder="Term Title"
+               Text="{Binding TermTitle}"
+               x:Name="termTitleEntry"/>
+
+        <Frame Padding="1" BorderColor="White" HasShadow="False">
+            <StackLayout>
+                <Label Text="START DATE" FontSize="Micro"/>
+                <DatePicker x:Name="StartDatePicker"
+                    Date="{Binding TermStartDate}"
+                    Format="D"
+                    MinimumDate="1/1/2018"
+                    MaximumDate="12/31/2025" />
+            </StackLayout>
+        </Frame>
+
+        <Frame Padding="1" BorderColor="White" HasShadow="False">
+            <StackLayout>
+                <Label Text="END DATE" FontSize="Micro"/>
+                <DatePicker x:Name="EndDatePicker"
+                    Date="{Binding TermEndDate}"
+                    Format="D"
+                    MinimumDate="1/1/2018"
+                    MaximumDate="12/31/2025" />
+            </StackLayout>
+        </Frame>
+
+
+        <!-- 2 Col buttons -->
+        <Grid VerticalOptions="EndAndExpand" ColumnDefinitions="*,*">
+            <Button Text="Save"
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    Clicked="SaveButton_Click" />
+            <Button Grid.Column="1"
+                    BackgroundColor="{StaticResource ColorDanger}"
+                    Text="Delete"
+                    Clicked="DeleteButton_Click"/>
+        </Grid>
+    </StackLayout>
 </ContentPage>
