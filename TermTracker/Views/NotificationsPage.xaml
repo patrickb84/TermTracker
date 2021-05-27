@@ -2,8 +2,30 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="TermTracker.Views.NotificationsPage">
+    x:Class="TermTracker.Views.NotificationsPage"
+    Title="Active Notifications">
     <StackLayout Spacing="20" Margin="{StaticResource PageMargin}">
-        <Label Text="Active Notifications" FontSize="Large" />
+        <CollectionView x:Name="NotificationsCollection">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                               ItemSpacing="22" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Spacing="2">
+                        <Label Text="{Binding ScheduleText}"
+                           TextColor="{StaticResource ColorInfo}"
+                           FontSize="Small"
+                           FontAttributes="Bold"/>
+                        <!--<Label Text="{Binding Title}"
+                           FontSize="Micro"
+                           FontAttributes="Bold"/>-->
+                        <Label Text="{Binding Body}"
+                           FontSize="Large"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </StackLayout>
 </ContentPage>

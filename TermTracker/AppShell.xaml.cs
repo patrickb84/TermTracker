@@ -16,7 +16,7 @@ namespace TermTracker
             Routing.RegisterRoute(nameof(CourseDetailPage), typeof(CourseDetailPage));
             Routing.RegisterRoute(nameof(AssessmentEntryPage), typeof(AssessmentEntryPage));
             Routing.RegisterRoute(nameof(CourseNotesPage), typeof(CourseNotesPage));
-            Routing.RegisterRoute(nameof(CourseNotePage), typeof(CourseNotePage));
+            Routing.RegisterRoute(nameof(CourseNoteEntryPage), typeof(CourseNoteEntryPage));
         }
     }
 }

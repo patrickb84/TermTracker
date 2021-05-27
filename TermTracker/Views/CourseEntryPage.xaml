@@ -20,7 +20,7 @@
                 <StackLayout Orientation="Horizontal">
                     <Label HorizontalOptions="FillAndExpand" VerticalOptions="Center" Text="Notify me when term starts"
                            FontSize="Small" FontAttributes="Italic" />
-                    <Switch IsToggled="false"/>
+                    <Switch x:Name="SwitchTermStart" IsToggled="{Binding NfStartOn}"/>
                 </StackLayout>
             </StackLayout>
         </Frame>
@@ -35,7 +35,7 @@
                 <StackLayout Orientation="Horizontal">
                     <Label HorizontalOptions="FillAndExpand" VerticalOptions="Center" Text="Notify me when term ends"
                            FontSize="Small" FontAttributes="Italic" />
-                    <Switch IsToggled="true"/>
+                    <Switch x:Name="SwitchTermEnd" IsToggled="{Binding NfEndOn}"/>
                 </StackLayout>
             </StackLayout>
         </Frame>

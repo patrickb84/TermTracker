@@ -4,6 +4,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using TermTracker.Views;
 using TermTracker.Data;
+using Plugin.LocalNotifications;
+using TermTracker.Models;
 
 namespace TermTracker
 {
@@ -31,8 +33,13 @@ namespace TermTracker
             MainPage = new AppShell();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
+            var activeNotifications = await App.Database.GetNotificationsAsync();
+            foreach (Notification n in activeNotifications)
+            {
+                CrossLocalNotifications.Current.Show(n.Title, n.Body, n.NotificationId, n.Schedule);
+            }
         }
 
         protected override void OnSleep()

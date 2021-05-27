@@ -62,15 +62,10 @@ namespace TermTracker.Views
             if (response)
             {
                 var term = (Term)BindingContext;
-                var termCourses = await App.Database.GetCoursesAsync(term.TermId);
-                foreach (Course c in termCourses)
-                {
-                    await App.Database.DeleteCourseAsync(c);
-                }
-                await App.Database.DeleteTermAsync(term);
+                await App.Database.FullDeleteTermAsync(term);
 
                 // Navigate backwards
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync("../..");
             }
         }
     }

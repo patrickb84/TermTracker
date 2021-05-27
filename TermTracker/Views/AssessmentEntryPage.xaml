@@ -25,9 +25,9 @@
                 <StackLayout Orientation="Horizontal">
                     <Label HorizontalOptions="FillAndExpand"
                            VerticalOptions="Center"
-                           Text="Notify me on this date"
+                           Text="Notify me on due date"
                            FontSize="Small" />
-                    <Switch IsToggled="{Binding NotifyDueDate}"/>
+                    <Switch x:Name="ToggleNotify" IsToggled="{Binding NfAssessOn}"/>
                 </StackLayout>
             </StackLayout>
         </Frame>

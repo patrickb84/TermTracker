@@ -33,11 +33,17 @@ namespace TermTracker.Models
         public DateTime CourseStartDate { get; set; }
         public DateTime CourseEndDate { get; set; }
 
-        public int CourseStartNotificationId { get; set; }
-        public int CourseEndNotificationId { get; set; }
+        public string NotificationStartId { get; set; }
+        public string NotificationEndId { get; set; }
 
-        public bool CourseStartNotificationOn { get; set; }
-        public bool UseCourseEndNotificationOn { get; set; }
+        public bool NfStartOn
+        {
+            get { return !string.IsNullOrEmpty(NotificationStartId); }
+        }
+        public bool NfEndOn
+        {
+            get { return !string.IsNullOrEmpty(NotificationEndId); }
+        }
 
         public string O_AssessmentRef { get; set; }
         public string P_AssessmentRef { get; set; }

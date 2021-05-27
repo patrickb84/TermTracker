@@ -9,5 +9,6 @@ namespace TermTracker.Models
         public int NoteCourseId { get; set; }
         public string Text { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string DateDisplay { get { return CreatedDate.ToString("MMMM d, yyyy"); } }
     }
 }

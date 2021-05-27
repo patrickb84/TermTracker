@@ -129,10 +129,11 @@ namespace TermTracker.Views
             }
         }
 
-        //async void InstructorInfo_Clicked(System.Object sender, System.EventArgs e)
-        //{
-        //    var instructorInfoPage = new InstructorInfoPage(ActiveCourse.CourseId);
-        //    await Navigation.PushModalAsync(instructorInfoPage);
-        //}
+        async void ViewNotes_Clicked(System.Object sender, System.EventArgs e)
+        {
+            Course c = (Course)BindingContext;
+            await Shell.Current.GoToAsync(
+                    $"{nameof(CourseNotesPage)}?{nameof(CourseNotesPage.CourseId)}={c.CourseId}");
+        }
     }
 }

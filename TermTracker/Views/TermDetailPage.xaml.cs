@@ -4,6 +4,7 @@ using TermTracker.Models;
 using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using Plugin.LocalNotifications;
 
 namespace TermTracker.Views
 {
@@ -57,8 +58,7 @@ namespace TermTracker.Views
 
         async void EditTerm_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(
-                $"{nameof(TermEntryPage)}?{nameof(TermEntryPage.TermId)}={ActiveTerm.TermId}");
+            await Shell.Current.GoToAsync($"{nameof(TermEntryPage)}?{nameof(TermEntryPage.TermId)}={ActiveTerm.TermId}");
         }
 
         async void CoursesCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)

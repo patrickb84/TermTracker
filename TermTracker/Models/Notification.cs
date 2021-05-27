@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SQLite;
 
 namespace TermTracker.Models
@@ -13,7 +14,21 @@ namespace TermTracker.Models
         public string Title { get; set; }
         public string Body { get; set; }
         public DateTime Schedule { get; set; }
-        public string RelationshipType { get; set; }
-        public int RelationshipId { get; set; }
+        public string ScheduleText {
+            get {
+                return Schedule.ToString("MMMM d, yyyy");
+            }
+        }
+        public string RelationshipId { get; set; }
+
+        public Notification() { }
+
+        public Notification(string title, string body, DateTime schedule)
+        {
+            Title = title;
+            Body = body;
+            Schedule = schedule;
+            RelationshipId = DateTime.Now.ToString("yyyyMMddHHmmss");
+        }
     }
 }

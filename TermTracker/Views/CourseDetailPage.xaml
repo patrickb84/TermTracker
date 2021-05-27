@@ -112,7 +112,8 @@
         <Frame Padding="0" VerticalOptions="EndAndExpand">
             <StackLayout Spacing="10">
                 <Button Text="View Course Notes"
-                        BackgroundColor="{StaticResource ColorInfo}" />
+                        BackgroundColor="{StaticResource ColorInfo}"
+                        Clicked="ViewNotes_Clicked" />
             </StackLayout>
         </Frame>
     </StackLayout>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Plugin.LocalNotifications;
 using SQLite;
 using TermTracker.Models;
 
@@ -22,9 +23,11 @@ namespace TermTracker.Data
         }
 
         #region Terms
-        public Task<List<Term>> GetTermsAsync()
+        public async Task<List<Term>> GetTermsAsync()
         {
-            return database.Table<Term>().ToListAsync();
+            var list = await database.Table<Term>().ToListAsync();
+            list.Sort((x, y) => x.TermStartDate.CompareTo(y.TermStartDate));
+            return list;
         }
 
         public Task<Term> GetTermAsync(int id)
@@ -99,9 +102,18 @@ namespace TermTracker.Data
                             .FirstOrDefaultAsync();
         }
 
-        public Task<List<Notification>> GetNotificationsAsync()
+        public Task<Notification> GetNotificationAsync(string id)
         {
-            return database.Table<Notification>().ToListAsync();
+            return database.Table<Notification>()
+                            .Where(i => i.RelationshipId == id)
+                            .FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Notification>> GetNotificationsAsync()
+        {
+            var list = await database.Table<Notification>().ToListAsync();
+            list.Sort((x, y) => x.Schedule.CompareTo(y.Schedule));
+            return list;
         }
 
         public Task<int> SaveNotificationAsync(Notification n)
@@ -163,6 +175,14 @@ namespace TermTracker.Data
                             .FirstOrDefaultAsync();
         }
 
+        public async Task<List<Note>> GetNotesAsync(int courseId)
+        {
+            var list = await database.Table<Note>()
+                .Where(i => i.NoteCourseId == courseId).ToListAsync();
+            list.Sort((x, y) => x.CreatedDate.CompareTo(y.CreatedDate));
+            return list;
+        }
+
         public Task<int> SaveNoteAsync(Note n)
         {
             if (n.NoteId != 0)
@@ -181,5 +201,71 @@ namespace TermTracker.Data
         }
         #endregion
 
+        public async Task<int> FullDeleteCourseAsync(Course c)
+        {
+            // Delete notifications
+            if (!string.IsNullOrEmpty(c.NotificationStartId))
+            {
+                var n = await App.Database.GetNotificationAsync(c.NotificationStartId);
+                await App.Database.FullDeleteNotificationAsync(n);
+            }
+            if (!string.IsNullOrEmpty(c.NotificationEndId))
+            {
+                var n = await App.Database.GetNotificationAsync(c.NotificationEndId);
+                await App.Database.FullDeleteNotificationAsync(n);
+            }
+
+            // Delete assessments
+            if (!string.IsNullOrEmpty(c.O_AssessmentRef))
+            {
+                var a = await App.Database.GetAssessmentAsync(c.O_AssessmentRef);
+                await App.Database.FullDeleteAssessmentAsync(a);
+            }
+            if (!string.IsNullOrEmpty(c.P_AssessmentRef))
+            {
+                var a = await App.Database.GetAssessmentAsync(c.P_AssessmentRef);
+                await App.Database.FullDeleteAssessmentAsync(a);
+            }
+
+            // Delete Notes
+            var notes = await App.Database.GetNotesAsync(c.CourseId);
+            if (notes.Count > 0)
+            {
+                foreach (Note n in notes)
+                {
+                    await App.Database.DeleteNoteAsync(n);
+                }
+            }
+
+            return await App.Database.DeleteCourseAsync(c);
+        }
+
+        public async Task<int> FullDeleteAssessmentAsync(Assessment a)
+        {
+            if (!string.IsNullOrEmpty(a.NotificationDueId))
+            {
+                var n = await App.Database.GetNotificationAsync(a.NotificationDueId);
+            }
+            return await App.Database.DeleteAssessmentAsync(a);
+        }
+
+        public async Task<int> FullDeleteNotificationAsync(Notification n)
+        {
+            CrossLocalNotifications.Current.Cancel(n.NotificationId);
+            return await App.Database.DeleteNotificationAsync(n);
+        }
+
+        public async Task<int> FullDeleteTermAsync(Term t)
+        {
+            var courses = await App.Database.GetCoursesAsync(t.TermId);
+            if (courses.Count > 0)
+            {
+                foreach (Course c in courses)
+                {
+                    await App.Database.FullDeleteCourseAsync(c);
+                }
+            }
+            return await App.Database.DeleteTermAsync(t);
+        }
     }
 }

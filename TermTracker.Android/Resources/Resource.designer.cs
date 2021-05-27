@@ -25,6 +25,7 @@ namespace TermTracker.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Plugin.LocalNotifications.Resource.Drawable.plugin_lc_smallicon = global::TermTracker.Droid.Resource.Drawable.plugin_lc_smallicon;
 			global::Xamarin.Essentials.Resource.Attribute.alpha = global::TermTracker.Droid.Resource.Attribute.alpha;
 			global::Xamarin.Essentials.Resource.Attribute.font = global::TermTracker.Droid.Resource.Attribute.font;
 			global::Xamarin.Essentials.Resource.Attribute.fontProviderAuthority = global::TermTracker.Droid.Resource.Attribute.fontProviderAuthority;
@@ -11788,13 +11789,16 @@ namespace TermTracker.Droid
 			public const int notify_panel_notification_icon_bg = 2131165327;
 			
 			// aapt resource value: 0x7F070090
-			public const int test_custom_background = 2131165328;
+			public const int plugin_lc_smallicon = 2131165328;
 			
 			// aapt resource value: 0x7F070091
-			public const int tooltip_frame_dark = 2131165329;
+			public const int test_custom_background = 2131165329;
 			
 			// aapt resource value: 0x7F070092
-			public const int tooltip_frame_light = 2131165330;
+			public const int tooltip_frame_dark = 2131165330;
+			
+			// aapt resource value: 0x7F070093
+			public const int tooltip_frame_light = 2131165331;
 			
 			static Drawable()
 			{

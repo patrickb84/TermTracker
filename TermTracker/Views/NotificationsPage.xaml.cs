@@ -11,5 +11,11 @@ namespace TermTracker.Views
         {
             InitializeComponent();
         }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            NotificationsCollection.ItemsSource = await App.Database.GetNotificationsAsync();
+        }
     }
 }
