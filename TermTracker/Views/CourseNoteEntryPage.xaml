@@ -4,22 +4,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="TermTracker.Views.CourseNoteEntryPage"
     Title="Note Entry">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Share"
-                     Clicked="ToolbarItem_Clicked" />
-    </ContentPage.ToolbarItems>
-    
     <StackLayout Margin="{StaticResource PageMargin}"
                  Spacing="12">
         <Editor Placeholder="Start writing..."
                Text="{Binding Text}"
-               x:Name="NoteEditor" />
+               x:Name="NoteEditor" VerticalOptions="FillAndExpand"  />
 
-        <Grid VerticalOptions="EndAndExpand" ColumnDefinitions="*,*">
+        <Button x:Name="NewNoteLayout" VerticalOptions="EndAndExpand" Text="Save"
+                    BackgroundColor="{StaticResource ColorPrimary}"
+                    Clicked="SaveButton_Click" />
+        <Grid x:Name="ExistingNoteLayout" IsVisible="false" VerticalOptions="EndAndExpand" ColumnDefinitions="*,*,*">
             <Button Text="Save"
                     BackgroundColor="{StaticResource ColorPrimary}"
                     Clicked="SaveButton_Click" />
             <Button Grid.Column="1"
+                    BackgroundColor="{StaticResource ColorInfo}"
+                    Text="Share"
+                    Clicked="Share_Clicked"/>
+            <Button Grid.Column="2"
                     BackgroundColor="{StaticResource ColorDanger}"
                     Text="Delete"
                     Clicked="DeleteButton_Click"/>

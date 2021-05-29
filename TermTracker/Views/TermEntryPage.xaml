@@ -17,9 +17,7 @@
                 <Label Text="START DATE" FontSize="Micro"/>
                 <DatePicker x:Name="StartDatePicker"
                     Date="{Binding TermStartDate}"
-                    Format="D"
-                    MinimumDate="1/1/2018"
-                    MaximumDate="12/31/2025" />
+                    Format="D" />
             </StackLayout>
         </Frame>
 
@@ -28,9 +26,7 @@
                 <Label Text="END DATE" FontSize="Micro"/>
                 <DatePicker x:Name="EndDatePicker"
                     Date="{Binding TermEndDate}"
-                    Format="D"
-                    MinimumDate="1/1/2018"
-                    MaximumDate="12/31/2025" />
+                    Format="D" />
             </StackLayout>
         </Frame>
 

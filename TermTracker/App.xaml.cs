@@ -21,7 +21,7 @@ namespace TermTracker
                 {
                     database = new Database(Path.Combine(Environment
                         .GetFolderPath(Environment.SpecialFolder
-                        .LocalApplicationData), "TermTracker.db3"));
+                        .LocalApplicationData), "TermTracker2.db3"));
                 }
                 return database;
             }

@@ -26,12 +26,16 @@ namespace TermTracker.Views
         {
             InitializeComponent();
             BindingContext = new Note();
+            ExistingNoteLayout.IsVisible = true;
+            NewNoteLayout.IsVisible = false;
         }
 
         public CourseNoteEntryPage(int courseId)
         {
             InitializeComponent();
             BindingContext = new Note() { NoteCourseId = courseId };
+            ExistingNoteLayout.IsVisible = false;
+            NewNoteLayout.IsVisible = true;
         }
 
         async void Load(string termId)
@@ -77,7 +81,7 @@ namespace TermTracker.Views
             }
         }
 
-        async void ToolbarItem_Clicked(System.Object sender, System.EventArgs e)
+        async void Share_Clicked(System.Object sender, System.EventArgs e)
         {
             var note = (Note)BindingContext;
             if (!string.IsNullOrEmpty(note.Text))
@@ -91,23 +95,6 @@ namespace TermTracker.Views
             else
             {
                 await DisplayAlert("Not allowed", "Note must have text in order to share.", "Ok");
-            }
-        }
-
-        public async Task SendSms(string messageText, string recipient)
-        {
-            try
-            {
-                var message = new SmsMessage(messageText, new[] { recipient });
-                await Sms.ComposeAsync(message);
-            }
-            catch (FeatureNotSupportedException ex)
-            {
-                // Sms is not supported on this device.
-            }
-            catch (Exception ex)
-            {
-                // Other error has occurred.
             }
         }
     }

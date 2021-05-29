@@ -25,6 +25,9 @@ namespace TermTracker.Views
         {
             InitializeComponent();
             BindingContext = new Course() { CourseTermId = termId };
+
+            EndDatePicker.Date = DateTime.Now;
+            StartDatePicker.Date = DateTime.Now;
         }
 
         protected override void OnAppearing()
@@ -35,6 +38,7 @@ namespace TermTracker.Views
             {
                 statusPicker.Items.Add(status);
             }
+            statusPicker.SelectedItem = "Plan To Take";
         }
 
         async void Load(string courseId)
@@ -125,7 +129,7 @@ namespace TermTracker.Views
                     Title = c.CourseTitle,
                     Body = isStartDate ? $"{c.CourseTitle} will begin." : $"{c.CourseTitle} will end.",
                     Schedule = isStartDate ? c.CourseStartDate : c.CourseEndDate,
-                    RelationshipId = DateTime.Now.ToString("yyyyMMddHHmmss")
+                    RelationshipId = DateTime.Now.ToString("yyyyMMddHHmmss") + (isStartDate ? "_start" : "_end")
                 };
 
                 await App.Database.SaveNotificationAsync(n);
@@ -134,15 +138,26 @@ namespace TermTracker.Views
             else if (notificationExists && turnOn)
             {
                 // There's an existing notification
-                var n = await App.Database.GetNotificationAsync(notificationRelationId);
-                var existing = n.Schedule;
-                var update = isStartDate ? c.CourseStartDate : c.CourseEndDate;
-                if (DateTime.Compare(existing, update) != 0)
+                var prevNotification = await App.Database.GetNotificationAsync(notificationRelationId);
+                var prevDate = prevNotification.Schedule;
+                var upDate = isStartDate ? c.CourseStartDate : c.CourseEndDate;
+
+                bool DatesNotEqual = DateTime.Compare(prevDate, upDate) != 0;
+                bool TitleNotEqual = c.CourseTitle != prevNotification.Title;
+
+                if (DatesNotEqual || TitleNotEqual)
                 {
-                    var nf = await App.Database.GetNotificationAsync(notificationRelationId);
-                    nf.Schedule = update;
-                    await App.Database.SaveNotificationAsync(nf);
-                    return nf.RelationshipId;
+                    var otherCourseNotificationId = isStartDate ? c.NotificationEndId : c.NotificationStartId;
+                    var otherNotification = await App.Database.GetNotificationAsync(otherCourseNotificationId);
+
+                    prevNotification.Title = otherNotification.Title = c.CourseTitle;
+                    prevNotification.Body = isStartDate ? $"{c.CourseTitle} will begin." : $"{c.CourseTitle} will end.";
+                    otherNotification.Body = !isStartDate ? $"{c.CourseTitle} will begin." : $"{c.CourseTitle} will end.";
+                    prevNotification.Schedule = upDate;
+
+                    await App.Database.SaveNotificationAsync(prevNotification);
+                    await App.Database.SaveNotificationAsync(otherNotification);
+                    return prevNotification.RelationshipId;
                 }
                 else
                     return notificationRelationId;

@@ -19,9 +19,7 @@
                 <Label Text="DUE DATE" FontSize="Micro"/>
                 <DatePicker x:Name="AssesmentDatePicker"
                     Date="{Binding DueDate}"
-                    Format="D"
-                    MinimumDate="1/1/2018"
-                    MaximumDate="12/31/2025" />
+                    Format="D" />
                 <StackLayout Orientation="Horizontal">
                     <Label HorizontalOptions="FillAndExpand"
                            VerticalOptions="Center"

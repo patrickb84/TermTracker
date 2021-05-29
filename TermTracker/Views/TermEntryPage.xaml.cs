@@ -18,6 +18,9 @@ namespace TermTracker.Views
         {
             InitializeComponent();
             BindingContext = new Term();
+
+            EndDatePicker.Date = DateTime.Now;
+            StartDatePicker.Date = DateTime.Now;
         }
 
         async void Load(string termId)

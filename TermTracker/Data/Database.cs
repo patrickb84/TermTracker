@@ -61,11 +61,13 @@ namespace TermTracker.Data
             return database.Table<Course>().ToListAsync();
         }
 
-        public Task<List<Course>> GetCoursesAsync(int termId)
+        public async Task<List<Course>> GetCoursesAsync(int termId)
         {
-            return database.Table<Course>()
+            var list = await database.Table<Course>()
                 .Where(i => i.CourseTermId == termId)
                 .ToListAsync();
+            list.Sort((x, y) => x.CourseStartDate.CompareTo(y.CourseStartDate));
+            return list;
         }
 
         public Task<Course> GetCourseAsync(int id)
@@ -93,8 +95,7 @@ namespace TermTracker.Data
         }
         #endregion
 
-        #region Notification
-
+        #region Notifications
         public Task<Notification> GetNotificationAsync(int id)
         {
             return database.Table<Notification>()
@@ -201,6 +202,20 @@ namespace TermTracker.Data
         }
         #endregion
 
+        #region Cascading Deletes
+        public async Task<int> FullDeleteTermAsync(Term t)
+        {
+            var courses = await App.Database.GetCoursesAsync(t.TermId);
+            if (courses.Count > 0)
+            {
+                foreach (Course c in courses)
+                {
+                    await App.Database.FullDeleteCourseAsync(c);
+                }
+            }
+            return await App.Database.DeleteTermAsync(t);
+        }
+
         public async Task<int> FullDeleteCourseAsync(Course c)
         {
             // Delete notifications
@@ -214,7 +229,6 @@ namespace TermTracker.Data
                 var n = await App.Database.GetNotificationAsync(c.NotificationEndId);
                 await App.Database.FullDeleteNotificationAsync(n);
             }
-
             // Delete assessments
             if (!string.IsNullOrEmpty(c.O_AssessmentRef))
             {
@@ -226,7 +240,6 @@ namespace TermTracker.Data
                 var a = await App.Database.GetAssessmentAsync(c.P_AssessmentRef);
                 await App.Database.FullDeleteAssessmentAsync(a);
             }
-
             // Delete Notes
             var notes = await App.Database.GetNotesAsync(c.CourseId);
             if (notes.Count > 0)
@@ -236,7 +249,7 @@ namespace TermTracker.Data
                     await App.Database.DeleteNoteAsync(n);
                 }
             }
-
+            // Delete Course
             return await App.Database.DeleteCourseAsync(c);
         }
 
@@ -245,27 +258,23 @@ namespace TermTracker.Data
             if (!string.IsNullOrEmpty(a.NotificationDueId))
             {
                 var n = await App.Database.GetNotificationAsync(a.NotificationDueId);
+                await App.Database.FullDeleteNotificationAsync(n);
             }
             return await App.Database.DeleteAssessmentAsync(a);
         }
 
         public async Task<int> FullDeleteNotificationAsync(Notification n)
         {
-            CrossLocalNotifications.Current.Cancel(n.NotificationId);
+            try
+            {
+                CrossLocalNotifications.Current.Cancel(n.NotificationId);
+            }
+            catch
+            {
+                // log: no cross local notification
+            }
             return await App.Database.DeleteNotificationAsync(n);
         }
-
-        public async Task<int> FullDeleteTermAsync(Term t)
-        {
-            var courses = await App.Database.GetCoursesAsync(t.TermId);
-            if (courses.Count > 0)
-            {
-                foreach (Course c in courses)
-                {
-                    await App.Database.FullDeleteCourseAsync(c);
-                }
-            }
-            return await App.Database.DeleteTermAsync(t);
-        }
+        #endregion
     }
 }

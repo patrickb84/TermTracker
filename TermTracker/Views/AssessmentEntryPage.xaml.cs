@@ -31,6 +31,8 @@ namespace TermTracker.Views
                 AssessmentType = assessmentType
             };
             SetButtonLayoutToNew(true);
+
+            AssesmentDatePicker.Date = DateTime.Now;
         }
 
         async void Load(string assessmentId)
@@ -124,15 +126,21 @@ namespace TermTracker.Views
             else if (notificationExists && turnOn)
             {
                 // There's an existing notification
-                var n = await App.Database.GetNotificationAsync(notificationRelationId);
-                var existing = n.Schedule;
-                var update = a.DueDate;
-                if (DateTime.Compare(existing, update) != 0)
+                var prevNotification = await App.Database.GetNotificationAsync(notificationRelationId);
+                var prevDate = prevNotification.Schedule;
+                var upDate = a.DueDate;
+
+                bool DatesNotEqual = DateTime.Compare(prevDate, upDate) != 0;
+                bool TitleNotEqual = a.AssessmentTitle != prevNotification.Title;
+
+                if (DatesNotEqual || TitleNotEqual)
                 {
-                    var nf = await App.Database.GetNotificationAsync(notificationRelationId);
-                    nf.Schedule = update;
-                    await App.Database.SaveNotificationAsync(nf);
-                    return nf.RelationshipId;
+                    prevNotification.Title = a.AssessmentTitle;
+                    prevNotification.Body = $"{a.AssessmentTitle} is due.";
+                    prevNotification.Schedule = upDate;
+
+                    await App.Database.SaveNotificationAsync(prevNotification);
+                    return prevNotification.RelationshipId;
                 }
                 else
                     return notificationRelationId;

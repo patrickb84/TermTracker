@@ -3,33 +3,29 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="TermTracker.Views.AboutPage"
-    Title="About">
-    <!-- Layout children in two rows -->
+    Title="About TermTracker">
     <Grid RowDefinitions="Auto,*">
-        <Image Source="xamarin_logo.png"
-               BackgroundColor="{StaticResource AppPrimaryColor}"
-               Opacity="0.85"
-               VerticalOptions="Center"
-               HeightRequest="64" />
-        <!-- Layout children vertically -->
         <StackLayout Grid.Row="1"
                      Margin="{StaticResource PageMargin}"
                      Spacing="20">
-            <Label FontSize="22">
+            <Label TextColor="black">
                 <Label.FormattedText>
                     <FormattedString>
                         <FormattedString.Spans>
-                            <Span Text="Notes"
+                            <Span Text="TermTracker"
                                   FontAttributes="Bold"
-                                  FontSize="22" />
-                            <Span Text=" v1.0" />
+                                  FontSize="Title" />
+                            <Span Text=" Xamarin Application"
+                                  FontSize="Subtitle"/>
                         </FormattedString.Spans>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
-            <Label Text="This app is written in XAML and C# with the Xamarin Platform." />
-            <Button Text="Learn more"
-                    Clicked="OnButtonClicked" />
+            <Label TextColor="black" FontSize="Body" Text="TermTracker is a cross-platform mobile application written in XAML and C#. WGU students can use it to track academic terms, courses, assessments, instructor information and more. Learn more about on GitHub." />
+            <Button Text="Learn more on GitHub"
+                    BackgroundColor="#313131"
+                    Clicked="OnButtonClicked"
+                    VerticalOptions="EndAndExpand" />
         </StackLayout>
     </Grid>
 </ContentPage>
